@@ -1,0 +1,52 @@
+{
+  "name": "@urban/webpack-build-system",
+  "version": "0.0.1",
+  "description": "An opinionated build system using Webpack.",
+  "author": "Urban Faubion <urban.faubion@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/urban/webpack-build-system#readme",
+  "keywords": [
+    "config",
+    "webpack"
+  ],
+  "bugs": {
+    "url": "https://github.com/urban/webpack-build-system/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/urban/webpack-build-system.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "dependencies": {
+    "extract-text-webpack-plugin": "^0.8.2",
+    "html-webpack-plugin": "^1.6.0",
+    "lodash.merge": "^3.3.2",
+    "look-up": "^0.7.1"
+  },
+  "devDependencies": {
+    "standard": "^4.4.0"
+  },
+  "peerDependencies": {
+    "autoprefixer-core": "*",
+    "babel": "*",
+    "babel-core": "*",
+    "babel-runtime": "*",
+    "babel-loader": "*",
+    "css-loader": "*",
+    "file-loader": "*",
+    "json-loader": "*",
+    "postcss-loader": "*",
+    "react-hot-loader": "*",
+    "style-loader": "*",
+    "url-loader": "*",
+    "webpack-dev-server": "*"
+  },
+  "standard": {
+    "ignore": [
+      "examples/*"
+    ]
+  }
+}
