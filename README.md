@@ -8,30 +8,45 @@ Continually creating a new build step for each project detracts time away from w
 
 ## Tools used
 
-- [webpack](http://webpack.github.io)
-  + Loaders
-    * [babel](https://github.com/babel/babel-loader) - Turn ES6 code into vanilla ES5 using [Babel](https://babeljs.io).
-    * [css](https://github.com/webpack/css-loader) - Loads css file with resolved imports and returns css code.
-    * [file](https://github.com/webpack/file-loader) - Emits the file into the output folder and returns the (relative) url.
-    * [json](https://github.com/webpack/json-loader) - Loads file as JSON.
-    * [postcss](https://github.com/postcss/postcss-loader) - Post-process CSS with Autoprefixer and other [PostCSS plugins](https://github.com/postcss/postcss#built-with-postcss).
-    * [style](https://github.com/webpack/style-loader) - Add exports of a module as style to DOM.
-    * [url](https://github.com/webpack/url-loader) - The url loader works like the file loader, but can return a Data Url if the file is smaller than a limit.
-  + Plugins
-    * [DedupePlugin](http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin)
-    * [DefinePlulgin](http://webpack.github.io/docs/list-of-plugins.html#defineplugin)
-    * [ExtractTextPlugin](https://github.com/webpack/extract-text-webpack-plugin)
-    * [HotModuleReplacementPlugin](http://webpack.github.io/docs/list-of-plugins.html#hotmodulereplacementplugin)
-    * [NoErrorsPlugin](http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin)
-    * [OccurenceOrderPlugin](http://webpack.github.io/docs/list-of-plugins.html#occurenceorderplugin)
-    * [UglifyJs](http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin)
-- [Babel](https://babeljs.io)
-  + [Babel Runtime](https://babeljs.io/docs/usage/runtime/)
-- [PostCSS](https://github.com/postcss/postcss)
-  + [Autoprefixer](https://github.com/postcss/autoprefixer)
+### webpack
+
+[webpack](http://webpack.github.io) is a module bundler. It takes JavaScript modules with dependencies (i.e. other JavaScript files, CSS, images, ...) and generates static assets representing those modules for the browser. It's similar to [Browserify](http://browserify.org/) with a few extra features such as [React hot-loading](https://github.com/gaearon/react-hot-loader).
+
+- **Loaders**
+  + [babel](https://github.com/babel/babel-loader) - Turn ES6 code into vanilla ES5 using [Babel](https://babeljs.io).
+  + [css](https://github.com/webpack/css-loader) - Loads css file with resolved imports and returns css code.
+  + [file](https://github.com/webpack/file-loader) - Emits the file into the output folder and returns the (relative) url.
+  + [json](https://github.com/webpack/json-loader) - Loads file as JSON.
+  + [postcss](https://github.com/postcss/postcss-loader) - Post-process CSS with Autoprefixer and other [PostCSS plugins](https://github.com/postcss/postcss#built-with-postcss).
+  + [style](https://github.com/webpack/style-loader) - Add exports of a module as style to DOM.
+  + [url](https://github.com/webpack/url-loader) - The url loader works like the file loader, but can return a Data Url if the file is smaller than a limit.
+
+- **Plugins**
+  + [BannerPlugin](http://webpack.github.io/docs/list-of-plugins.html#bannerplugin) - Adds a banner to the top of each generated chunk.
+  + [DedupePlugin](http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin) - Reduces file size by removing duplicate files.
+  + [DefinePlulgin](http://webpack.github.io/docs/list-of-plugins.html#defineplugin) - Inlines variables into the code which allows a minification pass to remove unused (dead) code.
+  + [ExtractTextPlugin](https://github.com/webpack/extract-text-webpack-plugin) - Moves required CSS into a separate CSS output file.
+  + [HotModuleReplacementPlugin](http://webpack.github.io/docs/list-of-plugins.html#hotmodulereplacementplugin) - Enables Hot Module Replacement.
+  + [NoErrorsPlugin](http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin) - Prevents the output when an error occurs.
+  + [OccurenceOrderPlugin](http://webpack.github.io/docs/list-of-plugins.html#occurenceorderplugin) - Assign the module and chunk ids by occurrence count making ids predictable and reduces the total file size.
+  + [UglifyJs](http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin) - Minimize all JavaScript output of chunks.
+
+### Babel
+
+[Babel](https://babeljs.io) is a JavaScrpt compiler. With it, you can transpile features of ES2015, ES2016 and more into ES5. These means you can use new the JavaScript syntax and features, **right now** without waiting for browser support. It also has built-in support for JSX and React. 
+
+- [Babel Runtime](https://babeljs.io/docs/usage/runtime/) - Reduces you bundle size and creates a sandboxed environment for built-ins without having to require a globally polluting [polyfill](http://babeljs.io/docs/usage/polyfill/).
+
+### PostCSS
+
+[PostCSS](https://github.com/postcss/postcss) is a tool for transforming CSS.  It transforms CSS written to published specs and standards that aren't implemented in all modern browsers to CSS that the browsers understand. Basically, you can write CSS using **tomorrows syntax today**.
+
+- [Autoprefixer](https://github.com/postcss/autoprefixer) - CSS and add vendor prefixes to CSS rules using values from [Can I Use](http://caniuse.com/).
 
 
 ## Install
+
+This project is published as a scoped package. Use the following to install and save it as a dependency.
 
 ```sh
 npm i --save @urban/webpack-build-system
@@ -106,6 +121,8 @@ Then add it as a `prebuild` script to your `package.json` file. Your final `scri
 
 To change the default [Babel](http://babeljs.io) settings, create a file at the root of your project called `.babelrc` that contains the [options](http://babeljs.io/docs/usage/options/) you'd like. 
 
+See [babelrc](https://babeljs.io/docs/usage/babelrc/) for more information.
+
 ```json
 {
   "stage": 0,
@@ -113,12 +130,12 @@ To change the default [Babel](http://babeljs.io) settings, create a file at the 
 }
 ```
 
-See [babelrc](https://babeljs.io/docs/usage/babelrc/) for more information.
-
 
 ### Autoprefixer config
 
 To change the default [Autoprefixer](https://github.com/postcss/autoprefixer) settings, create a file at the root of your project called `browserslist` that contains the options you'd like. 
+
+See [Browserslist docs](https://github.com/ai/browserslist#queries) for queries, browser names, config format, and default value.
 
 ```sh
 # Browsers that we support
@@ -127,8 +144,6 @@ To change the default [Autoprefixer](https://github.com/postcss/autoprefixer) se
 Last 2 versions
 IE 8 # sorry
 ```
-
-See [Browserslist docs](https://github.com/ai/browserslist#queries) for queries, browser names, config format, and default value.
 
 
 ## Credits
