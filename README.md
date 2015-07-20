@@ -102,9 +102,9 @@ Then add it as a `prebuild` script to your `package.json` file. Your final `scri
 
 ## Config options
 
-## Babel config
+### Babel config
 
-To change the Babel settings, create a file at the root of your project called `.babelrc` that contains the options you'd like. See [babelrc](https://babeljs.io/docs/usage/babelrc/) for an example.
+To change the default [Babel](http://babeljs.io) settings, create a file at the root of your project called `.babelrc` that contains the [options](http://babeljs.io/docs/usage/options/) you'd like. 
 
 ```json
 {
@@ -113,14 +113,22 @@ To change the Babel settings, create a file at the root of your project called `
 }
 ```
 
-You can also specify your `.babelrc` config from within the `package.json` file.
+See [babelrc](https://babeljs.io/docs/usage/babelrc/) for more information.
 
-```json
-"babel": {
-  "stage": 0,
-  "loose": "all"
-}
+
+### Autoprefixer config
+
+To change the default [Autoprefixer](https://github.com/postcss/autoprefixer) settings, create a file at the root of your project called `browserslist` that contains the options you'd like. 
+
+```sh
+# Browsers that we support
+
+> 1%
+Last 2 versions
+IE 8 # sorry
 ```
+
+See [Browserslist docs](https://github.com/ai/browserslist#queries) for queries, browser names, config format, and default value.
 
 
 ## Credits
