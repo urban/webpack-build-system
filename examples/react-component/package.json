@@ -4,12 +4,14 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "prebuild": "rimraf public",
     "build": "NODE_ENV=production webpack"
   },
   "author": "Urban Faubion",
   "license": "MIT",
   "dependencies": {
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "rimraf": "^2.4.2"
   },
   "devDependencies": {
     "@urban/webpack-build-system": "^1.0.0",

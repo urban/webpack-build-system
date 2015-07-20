@@ -34,7 +34,7 @@ Continually creating a new build step for each project detracts time away from w
 ## Install
 
 ```sh
-npm install --save @urban/webpack-build-system
+npm i --save @urban/webpack-build-system
 ```
 
 **Note about `peerDependencies`**
@@ -44,7 +44,7 @@ npm install --save @urban/webpack-build-system
 In npm version `3.x.x`, `peerDependencies` are no longer installed by default. In order to install the latest versions of this packages `peerDependencies`, please run the following command.
 
 ```sh
-npm install --save-dev autoprefixer-core babel babel-core babel-runtime babel-loader css-loader file-loader json-loader node-sass postcss-loader react-hot-loader style-loader sass-loader url-loader webpack webpack-dev-server
+npm i --save-dev autoprefixer-core babel babel-core babel-runtime babel-loader css-loader file-loader json-loader node-sass postcss-loader react-hot-loader style-loader sass-loader url-loader webpack webpack-dev-server
 ```
 
 ## Usage
@@ -76,6 +76,24 @@ Next, add the following to the `scripts` section of your `package.json` file.
 You can now run your project with `npm start` and view it by opening a browser to `http://localhost:3000`.
 
 If you'd like to build the static assets for your project, run `npm run build` and they will be generated into the `public` directory.
+
+It's a good idea to completely destroy and re-create your output directory when building. To do this, add a `pre-` hook to your `npm run build` command.
+
+First, install `rimraf` with the following.
+
+```sh
+npm i --save rimraf
+```
+
+Then add it as a `prebuild` script to your `package.json` file. Your final `scripts` section will look like the following.
+
+```js
+"scripts": {
+  "start": "webpack-dev-server",
+  "prebuild": "rimraf public",
+  "build": "webpack"
+}
+```
 
 
 ## Examples

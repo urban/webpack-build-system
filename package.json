@@ -1,6 +1,6 @@
 {
   "name": "@urban/webpack-build-system",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An opinionated build system using Webpack.",
   "author": "Urban Faubion",
   "license": "MIT",
