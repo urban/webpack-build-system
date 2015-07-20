@@ -1,5 +1,7 @@
 # Webpack build system
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+
 > An opinionated build system using Webpack.
 
 Continually creating a new build step for each project detracts time away from what's unique about your project. This is a consolidation of the tools and libraries I use for 80% of my projects into one build-system so I can speed up my "time to development" and focus on what's unique about my projects. It's an opinionated stack based on [webpack](http://webpack.github.io/) and the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) with smart defaults that simplify configuration.
