@@ -6,7 +6,7 @@
     "start": "webpack-dev-server",
     "build": "NODE_ENV=production webpack"
   },
-  "author": "Urban Faubion <urban.faubion@gmail.com>",
+  "author": "Urban Faubion",
   "license": "MIT",
   "dependencies": {
     "react": "^0.13.3"

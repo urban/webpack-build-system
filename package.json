@@ -1,8 +1,8 @@
 {
   "name": "@urban/webpack-build-system",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "An opinionated build system using Webpack.",
-  "author": "Urban Faubion <urban.faubion@gmail.com>",
+  "author": "Urban Faubion",
   "license": "MIT",
   "homepage": "https://github.com/urban/webpack-build-system#readme",
   "keywords": [
