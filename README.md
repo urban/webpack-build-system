@@ -110,6 +110,50 @@ Then add it as a `prebuild` script to your `package.json` file. Your final `scri
 }
 ```
 
+### Styles
+
+Each JavaScript module should require all it's dependencies, including styles. This is the "webpack way".
+
+To require your styles from a JavaScript file, add the following. Be sure to include the extension: `.css` in your path. 
+
+```js
+import './path/to/styles.css'
+```
+
+
+#### Local scope
+
+By default CSS exports all class names to the global selector scope. This means every selector has the potential of introducing unintended side effects by targeting unwanted elements or clashing with other selectors. However, with [local scope](https://github.com/webpack/css-loader#local-scope) you can mitigate this issue and expose your CSS selectors to JavaScript.
+
+With the `:local` syntax, the webpack css-loader replaces local selectors with unique identifiers.
+
+For example, if you had a CSS file located at `./path/to/styles.css` with the following.
+
+```css
+:local .className { color: green; }
+:local(.subClass) p { color: blue; }
+```
+
+It would be transformed into the following using the `localIdentName=[path][name]__[local]___[hash:base64:5]`. This makes it easier for debugging.
+
+```css
+.path-to-styles__className___23_aKvs-b8bW2Vg3fwHozO { color: green; }
+.path-to-styles__subClass___13LGdX8RMStbBE9w-t0gZ1 p { color: blue; }
+```
+
+The identifiers are then available to your JavaScript module and can accessed with the following. 
+
+```js
+import { className, subClass } from './path/to/styles.css'
+```
+
+When using `:local`, camelcasing is recommended for local selectors because they are easier to use in the importing JavaScript module.
+
+
+#### Composing CSS classes
+
+...
+
 
 ## Examples
 
