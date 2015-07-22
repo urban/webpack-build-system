@@ -155,6 +155,23 @@ When using `:local`, camelcasing is recommended for local selectors because they
 ...
 
 
+#### Other style loaders
+
+There are a few additional style loaders configured should you choose to use them.
+
+**less**
+
+Use npm to install the `less-loader` and then add `import './styles.less'` to your JavaScript module.
+
+**sass**
+
+Use npm to install the `sass-loader` and then add `import './styles.scss'` or `import './styles.sass'` to your JavaScript module.
+
+**stylus**
+
+Use npm to install the `stylus-loader` and then add `import './styles.styl'` to your JavaScript module.
+
+
 ## Examples
 
 ...
