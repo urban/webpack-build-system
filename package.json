@@ -30,15 +30,15 @@
     "standard": "^4.4.0"
   },
   "peerDependencies": {
-    "autoprefixer-core": "*",
+    "autoprefixer-loader": "*",
     "babel": "*",
     "babel-core": "*",
     "babel-runtime": "*",
     "babel-loader": "*",
     "css-loader": "*",
+    "cssnext-loader": "*",
     "file-loader": "*",
     "json-loader": "*",
-    "postcss-loader": "*",
     "react-hot-loader": "*",
     "style-loader": "*",
     "url-loader": "*",

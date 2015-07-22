@@ -4,7 +4,16 @@
 
 > An opinionated build system using Webpack.
 
-Continually creating a new build step for each project detracts time away from what's unique about your project. This is a consolidation of the tools and libraries I use for 80% of my projects into one build-system so I can speed up my "time to development" and focus on what's unique about my projects. It's an opinionated stack based on [webpack](http://webpack.github.io/) and the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) with smart defaults that simplify configuration.
+Continually creating a new build step for each project takes time. This is a consolidation of the tools and libraries I use for 80% of my projects into one build-system so I can speed up my "time to development" and focus on what's unique about my projects. It's an opinionated stack based on [webpack](http://webpack.github.io/) and the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) with smart defaults that simplify configuration.
+
+<!--
+## Features
+
+### Babel
+
+[Babel](https://babeljs.io) is a JavaScrpt compiler. With it, you can transpile features of ES2015, ES2016 and more into ES5. These means you can use new the JavaScript syntax and features, **right now** without waiting for browser support. It also has built-in support for JSX and React. 
+-->
+
 
 ## Tools used
 
@@ -13,12 +22,17 @@ Continually creating a new build step for each project detracts time away from w
 [webpack](http://webpack.github.io) is a module bundler. It takes JavaScript modules with dependencies (i.e. other JavaScript files, CSS, images, ...) and generates static assets representing those modules for the browser. It's similar to [Browserify](http://browserify.org/) with a few extra features such as [React hot-loading](https://github.com/gaearon/react-hot-loader).
 
 - **Loaders**
+  + [autoprefixer](https://github.com/postcss/autoprefixer) - CSS and add vendor prefixes to CSS rules using values from [Can I Use](http://caniuse.com/).
   + [babel](https://github.com/babel/babel-loader) - Turn ES6 code into vanilla ES5 using [Babel](https://babeljs.io).
+    * [babel-runtime](https://babeljs.io/docs/usage/runtime/) - Reduces you bundle size and creates a sandboxed environment for built-ins without having to require a globally polluting [polyfill](http://babeljs.io/docs/usage/polyfill/).
   + [css](https://github.com/webpack/css-loader) - Loads css file with resolved imports and returns css code.
+  + [cssnext](http://cssnext.io/) - A CSS transpiler that allows you to use the latest CSS syntax today.
   + [file](https://github.com/webpack/file-loader) - Emits the file into the output folder and returns the (relative) url.
   + [json](https://github.com/webpack/json-loader) - Loads file as JSON.
-  + [postcss](https://github.com/postcss/postcss-loader) - Post-process CSS with Autoprefixer and other [PostCSS plugins](https://github.com/postcss/postcss#built-with-postcss).
+  + [less](https://github.com/webpack/less-loader) - Loads the CSS pre-processor [less](http://lesscss.org/).
+  + [sass](https://github.com/jtangelder/sass-loader) - Loads the CSS pre-processor [node-sass](https://github.com/sass/node-sass) with support for both `sass` and the `scss` syntax.
   + [style](https://github.com/webpack/style-loader) - Add exports of a module as style to DOM.
+  + [stylus](https://github.com/shama/stylus-loader) - Loads the CSS pre-processor [Stylus](http://learnboost.github.io/stylus/).
   + [url](https://github.com/webpack/url-loader) - The url loader works like the file loader, but can return a Data Url if the file is smaller than a limit.
 
 - **Plugins**
@@ -30,18 +44,6 @@ Continually creating a new build step for each project detracts time away from w
   + [NoErrorsPlugin](http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin) - Prevents the output when an error occurs.
   + [OccurenceOrderPlugin](http://webpack.github.io/docs/list-of-plugins.html#occurenceorderplugin) - Assign the module and chunk ids by occurrence count making ids predictable and reduces the total file size.
   + [UglifyJs](http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin) - Minimize all JavaScript output of chunks.
-
-### Babel
-
-[Babel](https://babeljs.io) is a JavaScrpt compiler. With it, you can transpile features of ES2015, ES2016 and more into ES5. These means you can use new the JavaScript syntax and features, **right now** without waiting for browser support. It also has built-in support for JSX and React. 
-
-- [Babel Runtime](https://babeljs.io/docs/usage/runtime/) - Reduces you bundle size and creates a sandboxed environment for built-ins without having to require a globally polluting [polyfill](http://babeljs.io/docs/usage/polyfill/).
-
-### PostCSS
-
-[PostCSS](https://github.com/postcss/postcss) is a tool for transforming CSS.  It transforms CSS written to published specs and standards that aren't implemented in all modern browsers to CSS that the browsers understand. Basically, you can write CSS using **tomorrows syntax today**.
-
-- [Autoprefixer](https://github.com/postcss/autoprefixer) - CSS and add vendor prefixes to CSS rules using values from [Can I Use](http://caniuse.com/).
 
 
 ## Install
@@ -59,7 +61,7 @@ npm i --save @urban/webpack-build-system
 In npm version `3.x.x`, `peerDependencies` are no longer installed by default. In order to install the latest versions of this packages `peerDependencies`, please run the following command.
 
 ```sh
-npm i --save-dev autoprefixer-core babel babel-core babel-runtime babel-loader css-loader file-loader json-loader postcss-loader react-hot-loader style-loader url-loader webpack webpack-dev-server
+npm i --save-dev autoprefixer-loader babel babel-core babel-runtime babel-loader css-loader cssnext-loader file-loader json-loader node-libs-browser react-hot-loader style-loader url-loader webpack webpack-dev-server
 ```
 
 ## Usage
