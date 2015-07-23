@@ -1,7 +1,7 @@
 {
   "name": "react-component",
   "version": "1.0.0",
-  "main": "./src/index.js",
+  "main": "./src/index.jsx",
   "scripts": {
     "start": "webpack-dev-server",
     "prebuild": "rimraf public",
