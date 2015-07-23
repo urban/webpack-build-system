@@ -156,10 +156,16 @@ For more information on CSS Modules, please see [Local scope](https://github.com
 
 #### cssnext
 
-[cssnext](http://cssnext.io/) is a post-process CSS transpiler that allows you to write CSS according to the [new CSS specs](new CSS specs) by the CSS Working Group without waiting for browser support. This means you can use the latest CSS syntax features like variables, custom properties, custom selectors, custom media queries and more today.
+[cssnext](http://cssnext.io/) is a post-process CSS transpiler that lets you write CSS according to the [new CSS specs](new CSS specs) by the CSS Working Group without waiting for browser support. This means you can use the latest CSS syntax features like variables, custom properties, custom selectors, custom media queries and more today.
 
 cssnext is enabled by default for all files with the `.css` extension.
 
+
+#### Autoprefixer
+
+[Autoprefixer](https://github.com/postcss/autoprefixer) is a post-process CSS transpiler that lets you write CSS without having to worry about vendor prefixing rules.
+
+Autoprefixer is enabled by default for all style assets.
 
 #### Other style loaders
 
