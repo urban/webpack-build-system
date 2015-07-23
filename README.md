@@ -147,7 +147,7 @@ The identifiers are then available to your JavaScript module and can accessed wi
 import { className, subClass } from './path/to/styles.css'
 ```
 
-_Note: for debugging purposes, local `classNames` use the `[path][name]__[local]___[hash:base64:5]` format. Also, when using `:local`, camelcasing `className` is recommended because they are easier to use in the importing JavaScript module._
+Note: for debugging purposes, local `classNames` use the `[path][name]__[local]___[hash:base64:5]` format. Also, when using `:local`, camelcasing `className` is recommended because they are easier to use in the importing JavaScript module.
 
 CSS Module syntax is enabled by default for all files with the `.css` extension.
 
