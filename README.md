@@ -123,20 +123,18 @@ import './path/to/styles.css'
 ```
 
 
-#### Local scope
+#### CSS Modules
 
-By default CSS exports all class names to the global selector scope. This means every selector has the potential of introducing unintended side effects by targeting unwanted elements or clashing with other selectors. However, with [local scope](https://github.com/webpack/css-loader#local-scope) you can mitigate this issue and expose your CSS selectors to JavaScript.
+By default CSS exports all `classNames` to the global selector scope. This means every selector has the potential of introducing unintended side effects by targeting unwanted elements or clashing with other selectors. However, with [CSS Modules](https://github.com/webpack/css-loader#css-modules) you can mitigate this issue and expose your CSS to JavaScript.
 
-With the `:local` syntax, the webpack css-loader replaces local selectors with unique identifiers.
-
-For example, if you had a CSS file located at `./path/to/styles.css` with the following.
+With the `:local` syntax, the `css-loader` replaces the `className` with unique identifiers. For example, if you had a CSS file located at `./path/to/styles.css` with the following.
 
 ```css
-:local .className { color: green; }
+:local(.className) { color: green; }
 :local(.subClass) p { color: blue; }
 ```
 
-It would be transformed into the following using the `localIdentName=[path][name]__[local]___[hash:base64:5]`. This makes it easier for debugging.
+It would be transformed into the following.
 
 ```css
 .path-to-styles__className___23_aKvs-b8bW2Vg3fwHozO { color: green; }
@@ -149,12 +147,18 @@ The identifiers are then available to your JavaScript module and can accessed wi
 import { className, subClass } from './path/to/styles.css'
 ```
 
-When using `:local`, camelcasing is recommended for local selectors because they are easier to use in the importing JavaScript module.
+_Note: for debugging purposes, local `classNames` use the `[path][name]__[local]___[hash:base64:5]` format. Also, when using `:local`, camelcasing `className` is recommended because they are easier to use in the importing JavaScript module._
+
+CSS Module syntax is enabled by default for all files with the `.css` extension.
+
+For more information on CSS Modules, please see [Local scope](https://github.com/webpack/css-loader#local-scope), [Composing CSS classes](https://github.com/webpack/css-loader#composing-css-classes) and [Importing local class names](https://github.com/webpack/css-loader#importing-local-class-names).
 
 
-#### Composing CSS classes
+#### cssnext
 
-...
+[cssnext](http://cssnext.io/) is a post-process CSS transpiler that allows you to write CSS according to the [new CSS specs](new CSS specs) by the CSS Working Group without waiting for browser support. This means you can use the latest CSS syntax features like variables, custom properties, custom selectors, custom media queries and more today.
+
+cssnext is enabled by default for all files with the `.css` extension.
 
 
 #### Other style loaders
