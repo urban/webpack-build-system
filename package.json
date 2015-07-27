@@ -39,6 +39,7 @@
     "cssnext-loader": "*",
     "file-loader": "*",
     "json-loader": "*",
+    "react": "*",
     "react-hot-loader": "*",
     "style-loader": "*",
     "url-loader": "*",

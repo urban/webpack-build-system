@@ -61,7 +61,7 @@ npm i --save @urban/webpack-build-system
 In npm version `3.x.x`, `peerDependencies` are no longer installed by default. In order to install the latest versions of this packages `peerDependencies`, please run the following command.
 
 ```sh
-npm i --save-dev autoprefixer-loader babel babel-core babel-runtime babel-loader css-loader cssnext-loader file-loader json-loader node-libs-browser react-hot-loader style-loader url-loader webpack webpack-dev-server
+npm i --save-dev autoprefixer-loader babel babel-core babel-runtime babel-loader css-loader cssnext-loader file-loader json-loader node-libs-browser react react-hot-loader style-loader url-loader webpack webpack-dev-server
 ```
 
 ## Usage
