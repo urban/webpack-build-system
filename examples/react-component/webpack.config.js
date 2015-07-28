@@ -1,3 +1,5 @@
+'use strict'
+
 var getConfig = require('@urban/webpack-build-system')
 
 module.exports = getConfig({
