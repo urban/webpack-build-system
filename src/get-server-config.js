@@ -2,24 +2,23 @@ import webpack from 'webpack'
 
 export default function getDevServerConfig (config) {
 
-  const host = (config.devServer && config.devServer.host) || 'localhost'
-  const port = (config.devServer && config.devServer.port) || 3000
+  const devServer = Object.assign({}, {
+      contentBase: './public',
+      colors: true,
+      host: 'localhost',
+      port: 3000,
+      info: false,
+      historyApiFallback: true
+    }, config.devServer)
 
-  var devConfig = Object.assign({}, config, {
+  const devConfig = Object.assign({}, config, {
     devtool: 'eval',
     entry: [
-      `webpack-dev-server/client?http://${host}:${port}`,
+      `webpack-dev-server/client?http://${devServer.host}:${devServer.port}`,
       'webpack/hot/only-dev-server',
       config.entry
     ],
-    devServer: {
-      contentBase: './public',
-      colors: true,
-      port,
-      host,
-      info: false,
-      historyApiFallback: true
-    },
+    devServer,
     plugins: config.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()

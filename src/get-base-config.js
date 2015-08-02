@@ -1,8 +1,7 @@
 import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import querystring from 'querystring'
 
-export default function getBaseConfig (config) {
+export default function getBaseConfig (config = {}) {
 
   const cssLoaderOptions = querystring.stringify({
     modules: true,
@@ -23,8 +22,7 @@ export default function getBaseConfig (config) {
     plugins: [
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      }),
-      new HtmlWebpackPlugin()
+      })
     ],
     module: {
       loaders: [
