@@ -112,6 +112,9 @@ Then add it as a `prebuild` script to your `package.json` file. Your final `scri
 }
 ```
 
+By default, your package will be bundled using the Universal Module Definition (UMD) format.
+
+
 ### Styles
 
 Each JavaScript module should require all it's dependencies, including styles. This is the "webpack way".

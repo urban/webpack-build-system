@@ -12,8 +12,9 @@ export default function getBaseConfig (config = {}) {
 
   return {
     output: {
-      publicPath: '/',
-      hash: false
+      publicPath: '',
+      hash: false,
+      libraryTarget: 'umd'
     },
     resolve: {
       extensions: ['', '.js', '.jsx', '.json'],
