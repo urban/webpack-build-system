@@ -18,11 +18,12 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "clean": "rimraf lib",
     "build": "babel src --out-dir lib",
+    "clean": "rimraf lib",
     "prebuild": "npm run clean",
     "prepublish": "npm run build",
-    "test": "standard"
+    "test": "standard",
+    "watch": "babel src --out-dir lib --watch"
   },
   "dependencies": {
     "extract-text-webpack-plugin": "^0.8.2",
