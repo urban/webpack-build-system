@@ -3,8 +3,8 @@
 var getConfig = require('@urban/webpack-build-system')
 
 module.exports = getConfig({
-  entry: 'src/index.jsx',
+  entry: './src/index.jsx',
   output: {
-    path: 'public/'
+    path: 'public'
   }
 })
