@@ -1,5 +1,7 @@
 {
   "stage": 0,
   "loose": "all",
-  "optional": ["runtime"]
+  "optional": ["runtime"],
+  "plugins": ["object-assign", "flow-comments"],
+  "blacklist": ["flow"]
 }

@@ -1,9 +1,10 @@
+/* @flow */
 import webpack from 'webpack'
 import querystring from 'querystring'
 import { join } from 'path'
 import cssnext from 'cssnext'
 
-export default function getBaseConfig (config = {}) {
+export default function getBaseConfig (config: Object = {}): Object {
 
   const cssLocalIdentityName = '[name]---[local]---[hash:base64:5]'
   const cssLoader = `css-loader?module&importLoaders=1&localIdentityName=${cssLocalIdentityName}`

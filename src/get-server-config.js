@@ -1,6 +1,7 @@
+/* @flow */
 import webpack from 'webpack'
 
-export default function getDevServerConfig (config) {
+export default function getDevServerConfig (config: Object): Object {
 
   const devServer = Object.assign({}, {
       contentBase: './public',

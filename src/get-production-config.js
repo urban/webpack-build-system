@@ -1,8 +1,9 @@
+/* @flow */
 import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import buildBanner from './build-banner'
 
-export default function (config, pack) {
+export default function (config: Object, pack: Object): Object {
 
   // add `extract-text-webpack-plugin` to all loaders with the `style-loader`
   const loaders = config.module.loaders.map( (item) => {

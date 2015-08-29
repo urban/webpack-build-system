@@ -18,8 +18,8 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "prebuild": "npm run clean",
     "build": "babel src --out-dir lib",
+      "prebuild": "npm run clean",
     "clean": "rimraf lib",
     "lint": "standard",
     "prepublish": "npm run build",
@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "babel": "^5.8.21",
+    "babel-plugin-flow-comments": "^1.0.9",
+    "babel-plugin-object-assign": "^1.2.1",
     "babel-runtime": "^5.8.20",
     "rimraf": "^2.4.2",
     "standard": "^4.4.0"

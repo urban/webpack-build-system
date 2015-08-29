@@ -1,4 +1,5 @@
-export default function buildBanner ({ name, version, author, license}) {
+/* @flow */
+export default function buildBanner ({ name, version, author, license }: Object): string {
   const now = new Date()
   const year = now.getFullYear()
   const dateStamp = now.toISOString()

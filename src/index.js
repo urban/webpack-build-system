@@ -1,3 +1,4 @@
+/* @flow */
 import isDefined from './is-defined'
 import getBaseConfig from './get-base-config'
 import getServerConfig from './get-server-config'
@@ -10,7 +11,7 @@ import {resolve} from 'path'
 // we'll use this as the default for `isDev`
 const isWebpackDevServer = (process.argv[1] || '').indexOf('webpack-dev-server') !== -1
 
-export default function getConfig (props, isDev = isWebpackDevServer) {
+export default function getConfig (props: Object, isDev: boolean = isWebpackDevServer): Object {
 
   if (isMissingProperties(props)) {
     return errorForMissingProperties()
