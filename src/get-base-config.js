@@ -1,30 +1,32 @@
 import webpack from 'webpack'
 import querystring from 'querystring'
+import { join } from 'path'
+import cssnext from 'cssnext'
 
 export default function getBaseConfig (config = {}) {
 
-  const cssLoaderOptions = querystring.stringify({
-    modules: true,
-    importLoaders: 1,
-    localIdentName: '[path][name]---[local]---[hash:base64:5]'
-  })
-  const cssLoader = `css-loader?${cssLoaderOptions}`
+  const cssLocalIdentityName = '[name]---[local]---[hash:base64:5]'
+  const cssLoader = `css-loader?module&importLoaders=1&localIdentityName=${cssLocalIdentityName}`
 
   return {
+
     output: {
       publicPath: '',
       hash: false,
       libraryTarget: 'umd'
     },
+
     resolve: {
+      fallback: join(__dirname, 'node_modules'),
       extensions: ['', '.js', '.jsx', '.json'],
       packageAlias: 'browser'
     },
+
     plugins: [
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      })
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) })
     ],
+
     module: {
       loaders: [
         {
@@ -38,7 +40,7 @@ export default function getBaseConfig (config = {}) {
         },
         {
           test: /\.css$/,
-          loader: `style-loader!${cssLoader}!cssnext-loader`
+          loader: `style-loader!${cssLoader}!postcss-loader`
         },
         {
           test: /\.less$/,
@@ -65,6 +67,10 @@ export default function getBaseConfig (config = {}) {
           loader: 'url-loader?limit=10000'
         }
       ]
-    }
+    },
+
+    postcss: [
+      cssnext()
+    ]
   }
 }

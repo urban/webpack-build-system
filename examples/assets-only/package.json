@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "./src/index.jsx",
   "scripts": {
+    "clean": "rm -f ./public/*.css & rm -f ./public/*.js",
+    "prestart": "npm run clean",
     "start": "webpack-dev-server",
+    "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack"
   },
   "author": "Urban Faubion",
@@ -12,7 +15,6 @@
     "react": "^0.13.3"
   },
   "devDependencies": {
-    "@urban/webpack-build-system": "^1.0.0",
     "autoprefixer-loader": "^2.0.0",
     "babel": "^5.8.3",
     "babel-core": "^5.8.3",
@@ -20,6 +22,7 @@
     "babel-runtime": "^5.8.3",
     "css-loader": "^0.15.5",
     "cssnext-loader": "^1.0.1",
+    "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
     "json-loader": "^0.5.2",
     "node-libs-browser": "^0.5.2",

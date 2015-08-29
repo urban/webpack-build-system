@@ -11,7 +11,18 @@ export default function getDevServerConfig (config) {
       historyApiFallback: true
     }, config.devServer)
 
-  const devConfig = Object.assign({}, config, {
+  // add react-hot-loader to /\.js(x?)$/
+  const loaders = config.module.loaders.map( (item) => {
+    if (!item.test.test(/\.js(x?)$/)) return item
+    return Object.assign({}, item, {
+      loaders: [
+        'react-hot-loader',
+        ...item.loaders
+      ]
+    })
+  })
+
+  return Object.assign({}, config, {
     devtool: 'eval',
     entry: [
       `webpack-dev-server/client?http://${devServer.host}:${devServer.port}`,
@@ -19,17 +30,10 @@ export default function getDevServerConfig (config) {
       config.entry
     ],
     devServer,
-    plugins: config.plugins.concat([
+    plugins: [
+      ...config.plugins,
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
-    ])
+    ]
   })
-
-  // add react-hot-loader to /\.js(x?)$/
-  devConfig.module.loaders.forEach((loader) => {
-    if (!loader.test.test('.jsx')) return
-    loader.loaders.unshift('react-hot-loader')
-  })
-
-  return devConfig
 }

@@ -1,15 +1,15 @@
-export default function buildBanner (pack) {
+export default function buildBanner ({ name, version, author, license}) {
   const now = new Date()
   const year = now.getFullYear()
   const dateStamp = now.toISOString()
-  return (
 
-`${pack.name} v${pack.version}
+  return `
+${name} v${version}
 
-Copyright ${year} ${pack.author}
-Released under the ${pack.license} license
+Copyright ${year} ${author}
+Released under the ${license} license
 
-Date: ${dateStamp}`
+Date: ${dateStamp}
+`
 
-  )
 }

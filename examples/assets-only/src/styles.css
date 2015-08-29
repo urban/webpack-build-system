@@ -3,7 +3,7 @@
     --altColor: blue;
 }
 @custom-media    --mobile (width <= 640px);
-@custom-selector :--headings h1, h2, h3, h4, h5, h6;
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
 
 :global(html) {
   box-sizing: border-box;
@@ -29,9 +29,15 @@
   padding: 1.5rem;
 }
 
-.component :--headings {
-  color: color( var(--mainColor) blackness(+20%) );
-  margin-top: 0;
+.component :--heading {
+    color: color( var(--mainColor) blackness(+20%) );
+    margin-top: 0;
+}
+
+@media (--mobile) {
+    .component :--heading {
+        color: color( var(--altColor) blackness(+20%) );
+    }
 }
 
 .counter {
@@ -39,20 +45,3 @@
   border: 1px solid #333;
   padding: 20px;
 }
-
-.counter :--headings {
-  color: color( var(--altColor) blackness(+20%) );
-}
-
-@media (--mobile) {
-
-  .component :--headings {
-    color: color( var(--altColor) );
-  }
-
-  .counter :--headings {
-    color: color( var(--mainColor) );
-  }
-}
-
-

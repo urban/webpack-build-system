@@ -33,3 +33,5 @@ export default class App extends React.Component {
 if (typeof document !== 'undefined') {
   React.render(<App/>, document.querySelector('#content'))
 }
+
+export default App

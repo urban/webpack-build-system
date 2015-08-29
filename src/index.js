@@ -4,10 +4,13 @@ import getServerConfig from './get-server-config'
 import getProductionConfig from './get-production-config'
 import buildFilename from './build-filename'
 import lookup from 'look-up'
-import merge from 'lodash.merge'
 import {resolve} from 'path'
 
-export default function getConfig (props, isDev) {
+// figure out if we're running `webpack` or `webpack-dev-server`
+// we'll use this as the default for `isDev`
+const isWebpackDevServer = (process.argv[1] || '').indexOf('webpack-dev-server') !== -1
+
+export default function getConfig (props, isDev = isWebpackDevServer) {
 
   if (isMissingProperties(props)) {
     return errorForMissingProperties()
@@ -19,23 +22,16 @@ export default function getConfig (props, isDev) {
     return errorForMissingPackageProperties()
   }
 
-  // figure out if we're running `webpack` or `webpack-dev-server`
-  // we'll use this as the default for `isDev`
-  isDev = isDev || process.argv[1].indexOf('webpack-dev-server') !== -1
-
   // entry must be an absolute path
   props.entry = resolve(props.entry)
 
   // add in our defaults
-  var config = merge(getBaseConfig(), props)
-
-  if (!config.output.filename) {
-    config.output.filename = isDev ? 'bundle.js' : buildFilename(pack, config.output.hash, 'js')
-  }
-
-  if (!config.output.cssFilename) {
-    config.output.cssFilename = isDev ? 'bundle.css' : buildFilename(pack, config.output.hash, 'css')
-  }
+  var config = Object.assign({
+      filename: buildFilename(pack, config.output.hash, 'js'),
+      cssFilename: buildFilename(pack, config.output.hash, 'css')
+    },
+    getBaseConfig(),
+    props)
 
   // dev specific stuff
   if (isDev) {
