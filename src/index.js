@@ -27,21 +27,17 @@ export default function getConfig (props: Object, isDev: boolean = isWebpackDevS
   props.entry = resolve(props.entry)
 
   // add in our defaults
-  var config = Object.assign({
-      filename: buildFilename(pack, config.output.hash, 'js'),
-      cssFilename: buildFilename(pack, config.output.hash, 'css')
-    },
-    getBaseConfig(),
-    props)
+  const baseConfig = getBaseConfig()
+  var config = Object.assign({}, baseConfig, props,
+    {
+      output: Object.assign({}, baseConfig.output, {
+          filename: buildFilename(pack, 'js'),
+          cssFilename: buildFilename(pack, 'css')
+        }, props.output),
+      resolve: Object.assign({}, baseConfig.resolve, props.resolve)
+    })
 
-  // dev specific stuff
-  if (isDev) {
-    config = getServerConfig(config)
-  } else {
-    config = getProductionConfig(config, pack)
-  }
-
-  return config
+  return isDev ? getServerConfig(config) : getProductionConfig(config, pack)
 }
 
 function isMissingProperties (props) {

@@ -19,45 +19,57 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-      "prebuild": "npm run clean",
+    "prebuild": "npm run clean",
     "clean": "rimraf lib",
     "lint": "standard",
     "prepublish": "npm run build",
-    "test": "npm run lint",
+    "test": "babel-node ./test/index.js | tap-bail | tap-spec",
+    "posttest": "npm run lint",
     "watch": "babel src --out-dir lib --watch"
   },
   "dependencies": {
     "look-up": "^0.7.1"
   },
   "devDependencies": {
+    "autoprefixer": "^5.2.0",
+    "autoprefixer-core": "^5.2.1",
     "babel": "^5.8.21",
+    "babel-eslint": "^4.1.0",
+    "babel-loader": "^5.3.2",
     "babel-plugin-flow-comments": "^1.0.9",
     "babel-plugin-object-assign": "^1.2.1",
     "babel-runtime": "^5.8.20",
+    "css-loader": "^0.16.0",
+    "cssnext": "^1.8.4",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
+    "json-loader": "^0.5.2",
+    "postcss-loader": "^0.6.0",
+    "react": "^0.13.3",
     "rimraf": "^2.4.2",
-    "standard": "^4.4.0"
+    "standard": "^4.5.4",
+    "tap-bail": "0.0.0",
+    "tap-spec": "^4.1.0",
+    "tape": "^4.2.0",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.12.0"
   },
   "peerDependencies": {
-    "autoprefixer-loader": "*",
-    "babel": "*",
+    "autoprefixer": "*",
     "babel-core": "*",
-    "babel-runtime": "*",
     "babel-loader": "*",
     "css-loader": "*",
-    "cssnext-loader": "*",
+    "cssnext": "*",
     "extract-text-webpack-plugin": "*",
     "file-loader": "*",
     "json-loader": "*",
-    "react": "*",
+    "postcss-loader": "*",
     "react-hot-loader": "*",
-    "style-loader": "*",
     "url-loader": "*",
     "webpack-dev-server": "*",
     "webpack": "*"
   },
   "standard": {
-    "ignore": [
-      "examples/*"
-    ]
+    "parser": "babel-eslint"
   }
 }

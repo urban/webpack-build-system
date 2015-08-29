@@ -5,8 +5,7 @@ import buildBanner from './build-banner'
 
 export default function (config: Object, pack: Object): Object {
 
-  // add `extract-text-webpack-plugin` to all loaders with the `style-loader`
-  const loaders = config.module.loaders.map( (item) => {
+  const loaders = config.module.loaders.map((item) => {
     if (typeof item.loader !== 'string' || !item.loader.match('style-loader')) {
       return item
     }
@@ -21,15 +20,13 @@ export default function (config: Object, pack: Object): Object {
     module: Object.assign({}, config.module, { loaders }),
     plugins: [
       ...config.plugins,
-      new webpack.optimize.OccurenceOrderPlugin(true),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false },
-        output: { comments: false },
-        sourceMap: false
-      }),
-      new ExtractTextPlugin(config.output.cssFilename, {
-        allChunks: true
-      }),
+       new webpack.optimize.OccurenceOrderPlugin(true),
+       new webpack.optimize.UglifyJsPlugin({
+         compress: { warnings: false },
+         output: { comments: false },
+         sourceMap: false
+       }),
+      new ExtractTextPlugin(config.output.cssFilename, { allChunks: true }),
       new webpack.BannerPlugin(buildBanner(pack, {raw: false, entryOnly: false}))
     ]
   })

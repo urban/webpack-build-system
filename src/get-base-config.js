@@ -1,13 +1,12 @@
 /* @flow */
 import webpack from 'webpack'
-import querystring from 'querystring'
 import { join } from 'path'
 import cssnext from 'cssnext'
 
 export default function getBaseConfig (config: Object = {}): Object {
 
   const cssLocalIdentityName = '[name]---[local]---[hash:base64:5]'
-  const cssLoader = `css-loader?module&importLoaders=1&localIdentityName=${cssLocalIdentityName}`
+  const cssModules = `css-loader?modules&importLoaders=1&localIdentityName=${cssLocalIdentityName}`
 
   return {
 
@@ -20,12 +19,13 @@ export default function getBaseConfig (config: Object = {}): Object {
     resolve: {
       fallback: join(__dirname, 'node_modules'),
       extensions: ['', '.js', '.jsx', '.json'],
-      packageAlias: 'browser'
+      packagealias: 'browser'
     },
 
     plugins: [
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) })
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      })
     ],
 
     module: {
@@ -41,23 +41,7 @@ export default function getBaseConfig (config: Object = {}): Object {
         },
         {
           test: /\.css$/,
-          loader: `style-loader!${cssLoader}!postcss-loader`
-        },
-        {
-          test: /\.less$/,
-          loader: `style-loader!${cssLoader}!autoprefixer-loader!less-loader`
-        },
-        {
-          test: /\.sass$/,
-          loader: `style-loader!${cssLoader}!autoprefixer-loader!sass-loader?indentedSyntax`
-        },
-        {
-          test: /\.scss$/,
-          loader: `style-loader!${cssLoader}!autoprefixer-loader!sass-loader`
-        },
-        {
-          test: /\.styl$/,
-          loader: `style-loader!${cssLoader}!autoprefixer-loader!stylus-loader`
+          loader: `style-loader!${cssModules}!postcss-loader`
         },
         {
           test: /\.(png|jpg|gif)$/,
@@ -70,8 +54,6 @@ export default function getBaseConfig (config: Object = {}): Object {
       ]
     },
 
-    postcss: [
-      cssnext()
-    ]
+    postcss: [ cssnext() ]
   }
 }
