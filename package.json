@@ -21,6 +21,8 @@
     "build": "babel src --out-dir lib",
     "prebuild": "npm run clean",
     "clean": "rimraf lib",
+    "flow": "flow",
+    "preflow": "NODE_ENV=test npm run build",
     "lint": "standard",
     "prepublish": "npm run build",
     "test": "babel-node ./test/index.js | tap-bail | tap-spec",
@@ -31,14 +33,10 @@
     "look-up": "^0.7.1"
   },
   "devDependencies": {
-    "autoprefixer": "^5.2.0",
-    "autoprefixer-core": "^5.2.1",
     "babel": "^5.8.21",
     "babel-eslint": "^4.1.0",
     "babel-loader": "^5.3.2",
     "babel-plugin-flow-comments": "^1.0.9",
-    "babel-plugin-object-assign": "^1.2.1",
-    "babel-runtime": "^5.8.20",
     "css-loader": "^0.16.0",
     "cssnext": "^1.8.4",
     "extract-text-webpack-plugin": "^0.8.2",
@@ -48,6 +46,7 @@
     "react": "^0.13.3",
     "rimraf": "^2.4.2",
     "standard": "^4.5.4",
+    "style-loader": "^0.12.3",
     "tap-bail": "0.0.0",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.0",
@@ -55,7 +54,6 @@
     "webpack": "^1.12.0"
   },
   "peerDependencies": {
-    "autoprefixer": "*",
     "babel-core": "*",
     "babel-loader": "*",
     "css-loader": "*",
