@@ -5,11 +5,13 @@ import getServerConfig from './get-server-config'
 import getProductionConfig from './get-production-config'
 import buildFilename from './build-filename'
 import lookup from 'look-up'
-import {resolve} from 'path'
+import { resolve } from 'path'
+import merge from 'lodash.merge'
 
-// figure out if we're running `webpack` or `webpack-dev-server`
-// we'll use this as the default for `isDev`
-const isWebpackDevServer = (process.argv[1] || '').indexOf('webpack-dev-server') !== -1
+const isWebpackDevServer = process.argv.includes('webpack-dev-server')
+const WATCH = process.argv.includes('watch')
+const DEBUG = !process.argv.includes('release')
+const VERBOSE = process.argv.includes('verbose')
 
 export default function getConfig (props: Object, isDev: boolean = isWebpackDevServer): Object {
 
@@ -27,15 +29,13 @@ export default function getConfig (props: Object, isDev: boolean = isWebpackDevS
   props.entry = resolve(props.entry)
 
   // add in our defaults
-  const baseConfig = getBaseConfig()
-  var config = Object.assign({}, baseConfig, props,
-    {
-      output: Object.assign({}, baseConfig.output, {
-          filename: buildFilename(pack, 'js'),
-          cssFilename: buildFilename(pack, 'css')
-        }, props.output),
-      resolve: Object.assign({}, baseConfig.resolve, props.resolve)
-    })
+  const baseConfig = getBaseConfig(DEBUG, VERBOSE)
+  var config = merge({
+    output: {
+      filename: buildFilename(pack, 'js'),
+      cssFilename: buildFilename(pack, 'css')
+    }
+  }, baseConfig, props)
 
   return isDev ? getServerConfig(config) : getProductionConfig(config, pack)
 }

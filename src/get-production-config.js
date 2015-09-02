@@ -1,7 +1,8 @@
 /* @flow */
-import webpack from 'webpack'
+import webpack, { DefinePlugin, BannerPlugin } from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import buildBanner from './build-banner'
+import merge from 'lodash.merge'
 
 export default function (config: Object, pack: Object): Object {
 
@@ -16,18 +17,29 @@ export default function (config: Object, pack: Object): Object {
     })
   })
 
-  return Object.assign({}, config, {
-    module: Object.assign({}, config.module, { loaders }),
+  return merge({}, config, {
+    module: { 
+      loaders: [
+        ...loaders,
+        {
+          test: /\.js(x?)$/,
+          exclude: /node_modules/,
+          loaders: [ 'babel-loader' ]
+        }
+      ]
+    },
     plugins: [
       ...config.plugins,
-       new webpack.optimize.OccurenceOrderPlugin(true),
-       new webpack.optimize.UglifyJsPlugin({
-         compress: { warnings: false },
-         output: { comments: false },
-         sourceMap: false
-       }),
+      new DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) || 'develope'
+      }),
+//       new webpack.optimize.UglifyJsPlugin({
+//         compress: { warnings: false },
+//         output: { comments: false },
+//         sourceMap: false
+//       }),
       new ExtractTextPlugin(config.output.cssFilename, { allChunks: true }),
-      new webpack.BannerPlugin(buildBanner(pack, {raw: false, entryOnly: false}))
+      new BannerPlugin(buildBanner(pack, {raw: false, entryOnly: false}))
     ]
   })
 }

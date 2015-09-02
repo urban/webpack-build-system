@@ -30,6 +30,7 @@
     "watch": "babel src --out-dir lib --watch"
   },
   "dependencies": {
+    "lodash.merge": "^3.3.2",
     "look-up": "^0.7.1"
   },
   "devDependencies": {

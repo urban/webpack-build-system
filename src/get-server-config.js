@@ -1,41 +1,41 @@
 /* @flow */
-import webpack from 'webpack'
+import webpack, { HotModuleReplacementPlugin, NoErrorsPlugin } from 'webpack'
+import merge from 'lodash.merge'
 
 export default function getDevServerConfig (config: Object): Object {
 
-  const devServer = Object.assign({}, {
-      contentBase: './public',
-      colors: true,
-      host: 'localhost',
-      port: 3000,
-      info: false,
-      historyApiFallback: true
-    }, config.devServer)
+  const host = config.devServer.host || 'localhost'
+  const port = config.devServer.port || 3000
 
-  return Object.assign({}, config, {
+  return merge({}, config, {
     devtool: 'eval',
     entry: [
-      `webpack-dev-server/client?http://${devServer.host}:${devServer.port}`,
+      `webpack-dev-server/client?http://${host}:${port}`,
       'webpack/hot/only-dev-server',
       config.entry
     ],
-    devServer,
-    module: Object.assign({}, config.module, {
-      // add react-hot-loader to /\.js(x?)$/
-      loaders: config.module.loaders.map((item) => {
-        if (!item.test.test(/\.js(x?)$/)) return item
-        return Object.assign({}, item, {
-          loaders: [
-            'react-hot-loader',
-            ...item.loaders
-          ]
-        })
-      })
-    }),
+    devServer: {
+      contentBase: './public',
+      colors: true,
+      host,
+      port,
+      info: false,
+      historyApiFallback: true
+    },
+    module: {
+      loaders: [
+        ...config.module.loaders,
+        {
+          test: /\.js(x?)$/,
+          exclude: /node_modules/,
+          loaders: [ 'react-hot-loader', 'babel-loader' ]
+        }
+      ]
+    },
     plugins: [
       ...config.plugins,
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
+      new HotModuleReplacementPlugin(),
+      new NoErrorsPlugin()
     ]
   })
 }

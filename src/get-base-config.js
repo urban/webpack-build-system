@@ -3,7 +3,7 @@ import webpack from 'webpack'
 import { join } from 'path'
 import cssnext from 'cssnext'
 
-export default function getBaseConfig (config: Object = {}): Object {
+export default function getBaseConfig (isDev: boolean = false, isVerbose: boolean = false): Object {
 
   const cssLocalIdentityName = '[name]---[local]---[hash:base64:5]'
   const cssModules = `css-loader?modules&importLoaders=1&localIdentityName=${cssLocalIdentityName}`
@@ -11,30 +11,37 @@ export default function getBaseConfig (config: Object = {}): Object {
   return {
 
     output: {
-      publicPath: '',
-      hash: false,
+      publicPath: '/',
       libraryTarget: 'umd'
     },
 
     resolve: {
       fallback: join(__dirname, 'node_modules'),
-      extensions: ['', '.js', '.jsx', '.json'],
-      packagealias: 'browser'
+      extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx'],
+      packageAlias: 'browser'
+    },
+
+    cache: isDev,
+    debug: isDev,
+
+    stats: {
+      colors: true,
+      reasons: isDev,
+      hash: isVerbose,
+      version: isVerbose,
+      timings: true,
+      chunks: isVerbose,
+      chunkModules: isVerbose,
+      cached: isVerbose,
+      cachedAssets: isVerbose
     },
 
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      })
+      new webpack.optimize.OccurenceOrderPlugin()
     ],
 
     module: {
       loaders: [
-        {
-          test: /\.js(x?)$/,
-          exclude: /node_modules/,
-          loaders: ['babel-loader']
-        },
         {
           test: /\.json$/,
           loader: 'json-loader'
@@ -44,12 +51,37 @@ export default function getBaseConfig (config: Object = {}): Object {
           loader: `style-loader!${cssModules}!postcss-loader`
         },
         {
-          test: /\.(png|jpg|gif)$/,
-          loader: 'url-loader?limit=8192'
-        }, // inline base64 URLs for <=8k images, direct URLs for the rest
+          test: /\.png/,
+          loader: 'url-loader?limit=8192&mimetype=image/png'
+        },
         {
-          test: /\.(otf|eot|svg|ttf|woff)/,
-          loader: 'url-loader?limit=10000'
+          test: /\.jpg/,
+          loader: 'url-loader?limit=8192&mimetype=image/jpg'
+        },
+        {
+          test: /\.gif/,
+          loader: 'url-loader?limit=8192&mimetype=image/gif'
+        },
+        {
+          test: /\.svg/,
+          loader: 'url-loader?limit=8192&mimetype=image/svg+xml'
+        },
+        {
+          test: /\.otf/,
+          loader: 'url-loader?limit=100000&mimetype=font/otf'
+        },
+        {
+          test: /\.eot/,
+          loader: 'url-loader?limit=100000&mimetype=application/vnd.ms-fontobject'
+        }, {
+          test: /\.woff2/,
+          loader: 'url-loader?limit=100000&mimetype=application/font-woff2'
+        }, {
+          test: /\.woff/,
+          loader: 'url-loader?limit=100000&mimetype=application/font-woff'
+        }, {
+          test: /\.ttf/,
+          loader: 'url-loader?limit=100000&mimetype=application/font-ttf'
         }
       ]
     },
