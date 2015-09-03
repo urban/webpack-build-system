@@ -1,4 +1,5 @@
 /* @flow */
+import invariant from 'invariant'
 import isDefined from './is-defined'
 import getBaseConfig from './get-base-config'
 import getServerConfig from './get-server-config'
@@ -13,17 +14,19 @@ const WATCH = process.argv.includes('watch')
 const DEBUG = !process.argv.includes('release')
 const VERBOSE = process.argv.includes('verbose')
 
-export default function getConfig (props: Object, isDev: boolean = isWebpackDevServer): Object {
+const projectPackage = require(lookup('package.json', { cwd: process.cwd() }))
 
-  if (isMissingProperties(props)) {
-    return errorForMissingProperties()
-  }
+export default function getConfig (props: Object, pkg: Object = projectPackage, isDev: boolean = isWebpackDevServer): Object {
 
-  const pack = require(lookup('package.json', {cwd: process.cwd()}))
+  invariant(
+    props && props.entry && props.output && props.output.path,
+    'Must pass in config options object with `entry` and `output.path` properties'
+  )
 
-  if (isMissingPackageProperties(pack)) {
-    return errorForMissingPackageProperties()
-  }
+  invariant(
+    pkg && pkg.name && pkg.version && pkg.author && pkg.license,
+    'Your `package.json` file must container `name`, `version`, `author` and `license` properties.'
+  )
 
   // entry must be an absolute path
   props.entry = resolve(props.entry)
@@ -32,36 +35,10 @@ export default function getConfig (props: Object, isDev: boolean = isWebpackDevS
   const baseConfig = getBaseConfig(DEBUG, VERBOSE)
   var config = merge({
     output: {
-      filename: buildFilename(pack, 'js'),
-      cssFilename: buildFilename(pack, 'css')
+      filename: buildFilename(pkg, 'js'),
+      cssFilename: buildFilename(pkg, 'css')
     }
   }, baseConfig, props)
 
-  return isDev ? getServerConfig(config) : getProductionConfig(config, pack)
-}
-
-function isMissingProperties (props) {
-  return (
-    !isDefined(props) ||
-    !isDefined(props.entry) ||
-    !isDefined(props.output.path)
-  )
-}
-
-function isMissingPackageProperties (props) {
-  return (
-    !isDefined(props) ||
-    !isDefined(props.name) ||
-    !isDefined(props.version) ||
-    !isDefined(props.author) ||
-    !isDefined(props.license)
-  )
-}
-
-function errorForMissingProperties () {
-  throw new Error('Must pass in options with `entry` and `output.path` properties')
-}
-
-function errorForMissingPackageProperties () {
-  throw new Error('Your `package.json` file must container `name`, `version`, `author` and `license` properties.')
+  return isDev ? getServerConfig(config) : getProductionConfig(config, pkg)
 }

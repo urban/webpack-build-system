@@ -30,6 +30,7 @@
     "watch": "babel src --out-dir lib --watch"
   },
   "dependencies": {
+    "invariant": "^2.1.0",
     "lodash.merge": "^3.3.2",
     "look-up": "^0.7.1"
   },
@@ -42,6 +43,7 @@
     "cssnext": "^1.8.4",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
+    "invariant": "^2.1.0",
     "json-loader": "^0.5.2",
     "postcss-loader": "^0.6.0",
     "react": "^0.13.3",
